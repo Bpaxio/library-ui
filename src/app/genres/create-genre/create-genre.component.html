@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Название жанра"/>
+  </mat-form-field>
+  <div>
+    <button type="submit" (click)="create()">Создать</button>
+    <button type="reset" (click)="cancel()">Отменить</button>
+  </div>
+</form>
