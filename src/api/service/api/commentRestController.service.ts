@@ -62,26 +62,62 @@ export class CommentRestControllerService {
     /**
      * createComment
      * 
-     * @param bookId bookId
-     * @param message message
-     * @param username username
+     * @param commentDto commentDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createCommentUsingPOST(bookId?: string, message?: string, username?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createCommentUsingPOST(bookId?: string, message?: string, username?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createCommentUsingPOST(bookId?: string, message?: string, username?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createCommentUsingPOST(bookId?: string, message?: string, username?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createCommentUsingPOST(commentDto: CommentDto, observe?: 'body', reportProgress?: boolean): Observable<CommentDto>;
+    public createCommentUsingPOST(commentDto: CommentDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CommentDto>>;
+    public createCommentUsingPOST(commentDto: CommentDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CommentDto>>;
+    public createCommentUsingPOST(commentDto: CommentDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (commentDto === null || commentDto === undefined) {
+            throw new Error('Required parameter commentDto was null or undefined when calling createCommentUsingPOST.');
+        }
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (bookId !== undefined && bookId !== null) {
-            queryParameters = queryParameters.set('bookId', <any>bookId);
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        if (message !== undefined && message !== null) {
-            queryParameters = queryParameters.set('message', <any>message);
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        if (username !== undefined && username !== null) {
-            queryParameters = queryParameters.set('username', <any>username);
+
+        return this.httpClient.post<CommentDto>(`${this.configuration.basePath}/api/comment`,
+            commentDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * deleteComment
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteCommentUsingDELETE(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteCommentUsingDELETE(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteCommentUsingDELETE(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteCommentUsingDELETE(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteCommentUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
@@ -98,10 +134,8 @@ export class CommentRestControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/comment`,
-            null,
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/api/comment/${encodeURIComponent(String(id))}`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -118,9 +152,9 @@ export class CommentRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public editCommentUsingPUT(id: string, message: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public editCommentUsingPUT(id: string, message: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public editCommentUsingPUT(id: string, message: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public editCommentUsingPUT(id: string, message: string, observe?: 'body', reportProgress?: boolean): Observable<CommentDto>;
+    public editCommentUsingPUT(id: string, message: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CommentDto>>;
+    public editCommentUsingPUT(id: string, message: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CommentDto>>;
     public editCommentUsingPUT(id: string, message: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling editCommentUsingPUT.');
@@ -133,6 +167,7 @@ export class CommentRestControllerService {
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -148,7 +183,7 @@ export class CommentRestControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/api/comment/${encodeURIComponent(String(id))}`,
+        return this.httpClient.put<CommentDto>(`${this.configuration.basePath}/api/comment/${encodeURIComponent(String(id))}`,
             message,
             {
                 withCredentials: this.configuration.withCredentials,

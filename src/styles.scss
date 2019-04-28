@@ -1,7 +1,10 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/_theming.scss';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "app/variables_main";
+@include mat-core();
 @import "~bootstrap/scss/bootstrap";
-@import "app/mixins_main";
+@import "app/table_style";
 
 html, body {
   width: 100%;
@@ -10,7 +13,7 @@ html, body {
 
 body {
   margin: 0;
-  padding: 48px 0 0 0;
+  padding: 20px 40px;
 
   color: $black;
   font-family: $font-general;

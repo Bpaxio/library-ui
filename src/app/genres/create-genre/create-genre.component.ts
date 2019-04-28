@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { GenreRestControllerService } from '../../../api/service';
@@ -15,7 +15,6 @@ export class CreateGenreDialogComponent {
   form = new FormGroup(
     { name: new FormControl('', Validators.required)}
   );
-
 
   constructor(
     private router: Router,

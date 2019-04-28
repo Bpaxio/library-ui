@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AuthorDto } from '../model/authorDto';
+import { BookDto } from '../model/bookDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -66,9 +67,9 @@ export class AuthorRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'body', reportProgress?: boolean): Observable<AuthorDto>;
+    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthorDto>>;
+    public createAuthorUsingPOST(authorDto: AuthorDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthorDto>>;
     public createAuthorUsingPOST(authorDto: AuthorDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (authorDto === null || authorDto === undefined) {
             throw new Error('Required parameter authorDto was null or undefined when calling createAuthorUsingPOST.');
@@ -78,6 +79,7 @@ export class AuthorRestControllerService {
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -93,7 +95,7 @@ export class AuthorRestControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/author`,
+        return this.httpClient.post<AuthorDto>(`${this.configuration.basePath}/api/author`,
             authorDto,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -220,38 +222,25 @@ export class AuthorRestControllerService {
     }
 
     /**
-     * updateAuthor
+     * getBooks
      * 
      * @param id id
-     * @param country country
-     * @param name name
-     * @param surname surname
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateAuthorUsingPUT(id: string, country?: string, name?: string, surname?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateAuthorUsingPUT(id: string, country?: string, name?: string, surname?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateAuthorUsingPUT(id: string, country?: string, name?: string, surname?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateAuthorUsingPUT(id: string, country?: string, name?: string, surname?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getBooksUsingGET(id: string, observe?: 'body', reportProgress?: boolean): Observable<Array<BookDto>>;
+    public getBooksUsingGET(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookDto>>>;
+    public getBooksUsingGET(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookDto>>>;
+    public getBooksUsingGET(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateAuthorUsingPUT.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (country !== undefined && country !== null) {
-            queryParameters = queryParameters.set('country', <any>country);
-        }
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (surname !== undefined && surname !== null) {
-            queryParameters = queryParameters.set('surname', <any>surname);
+            throw new Error('Required parameter id was null or undefined when calling getBooksUsingGET.');
         }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -262,10 +251,54 @@ export class AuthorRestControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/api/author/${encodeURIComponent(String(id))}`,
-            null,
+        return this.httpClient.get<Array<BookDto>>(`${this.configuration.basePath}/api/author/${encodeURIComponent(String(id))}/book`,
             {
-                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * updateAuthor
+     * 
+     * @param authorDto authorDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateAuthorUsingPUT(authorDto: AuthorDto, observe?: 'body', reportProgress?: boolean): Observable<AuthorDto>;
+    public updateAuthorUsingPUT(authorDto: AuthorDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthorDto>>;
+    public updateAuthorUsingPUT(authorDto: AuthorDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthorDto>>;
+    public updateAuthorUsingPUT(authorDto: AuthorDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorDto === null || authorDto === undefined) {
+            throw new Error('Required parameter authorDto was null or undefined when calling updateAuthorUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<AuthorDto>(`${this.configuration.basePath}/api/author`,
+            authorDto,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

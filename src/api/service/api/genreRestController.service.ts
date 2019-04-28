@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { BookDto } from '../model/bookDto';
 import { GenreDto } from '../model/genreDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -66,9 +67,9 @@ export class GenreRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createGenreUsingPOST(name: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createGenreUsingPOST(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createGenreUsingPOST(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createGenreUsingPOST(name: string, observe?: 'body', reportProgress?: boolean): Observable<GenreDto>;
+    public createGenreUsingPOST(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<GenreDto>>;
+    public createGenreUsingPOST(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<GenreDto>>;
     public createGenreUsingPOST(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (name === null || name === undefined) {
             throw new Error('Required parameter name was null or undefined when calling createGenreUsingPOST.');
@@ -78,6 +79,7 @@ export class GenreRestControllerService {
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -93,7 +95,7 @@ export class GenreRestControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/genre`,
+        return this.httpClient.post<GenreDto>(`${this.configuration.basePath}/api/genre`,
             name,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -134,6 +136,46 @@ export class GenreRestControllerService {
         ];
 
         return this.httpClient.delete<any>(`${this.configuration.basePath}/api/genre/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getBooks
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getBooksUsingGET2(id: string, observe?: 'body', reportProgress?: boolean): Observable<Array<BookDto>>;
+    public getBooksUsingGET2(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookDto>>>;
+    public getBooksUsingGET2(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookDto>>>;
+    public getBooksUsingGET2(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getBooksUsingGET2.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<BookDto>>(`${this.configuration.basePath}/api/genre/${encodeURIComponent(String(id))}/book`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -227,9 +269,9 @@ export class GenreRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateGenreUsingPUT(id: string, name: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateGenreUsingPUT(id: string, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateGenreUsingPUT(id: string, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateGenreUsingPUT(id: string, name: string, observe?: 'body', reportProgress?: boolean): Observable<GenreDto>;
+    public updateGenreUsingPUT(id: string, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<GenreDto>>;
+    public updateGenreUsingPUT(id: string, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<GenreDto>>;
     public updateGenreUsingPUT(id: string, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateGenreUsingPUT.');
@@ -242,6 +284,7 @@ export class GenreRestControllerService {
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -257,7 +300,7 @@ export class GenreRestControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/api/genre/${encodeURIComponent(String(id))}`,
+        return this.httpClient.put<GenreDto>(`${this.configuration.basePath}/api/genre/${encodeURIComponent(String(id))}`,
             name,
             {
                 withCredentials: this.configuration.withCredentials,

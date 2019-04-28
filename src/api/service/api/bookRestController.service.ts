@@ -62,44 +62,23 @@ export class BookRestControllerService {
     /**
      * createBook
      * 
-     * @param author author
-     * @param genre genre
-     * @param name name
-     * @param price price
-     * @param publicationDate publicationDate
-     * @param publishingOffice publishingOffice
+     * @param bookDto bookDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createBookUsingPOST(author?: string, genre?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createBookUsingPOST(author?: string, genre?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createBookUsingPOST(author?: string, genre?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createBookUsingPOST(author?: string, genre?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (author !== undefined && author !== null) {
-            queryParameters = queryParameters.set('author', <any>author);
-        }
-        if (genre !== undefined && genre !== null) {
-            queryParameters = queryParameters.set('genre', <any>genre);
-        }
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (price !== undefined && price !== null) {
-            queryParameters = queryParameters.set('price', <any>price);
-        }
-        if (publicationDate !== undefined && publicationDate !== null) {
-            queryParameters = queryParameters.set('publicationDate', <any>publicationDate);
-        }
-        if (publishingOffice !== undefined && publishingOffice !== null) {
-            queryParameters = queryParameters.set('publishingOffice', <any>publishingOffice);
+    public createBookUsingPOST(bookDto: BookDto, observe?: 'body', reportProgress?: boolean): Observable<BookDto>;
+    public createBookUsingPOST(bookDto: BookDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BookDto>>;
+    public createBookUsingPOST(bookDto: BookDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BookDto>>;
+    public createBookUsingPOST(bookDto: BookDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (bookDto === null || bookDto === undefined) {
+            throw new Error('Required parameter bookDto was null or undefined when calling createBookUsingPOST.');
         }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -108,12 +87,16 @@ export class BookRestControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/book`,
-            null,
+        return this.httpClient.post<BookDto>(`${this.configuration.basePath}/api/book`,
+            bookDto,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -129,14 +112,12 @@ export class BookRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteBookByIdUsingDELETE(id?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteBookByIdUsingDELETE(id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteBookByIdUsingDELETE(id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteBookByIdUsingDELETE(id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
+    public deleteBookByIdUsingDELETE(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteBookByIdUsingDELETE(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteBookByIdUsingDELETE(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteBookByIdUsingDELETE(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteBookByIdUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
@@ -155,7 +136,6 @@ export class BookRestControllerService {
 
         return this.httpClient.delete<any>(`${this.configuration.basePath}/api/book/${encodeURIComponent(String(id))}`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -171,14 +151,12 @@ export class BookRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBookUsingGET(id?: string, observe?: 'body', reportProgress?: boolean): Observable<BookDto>;
-    public getBookUsingGET(id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BookDto>>;
-    public getBookUsingGET(id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BookDto>>;
-    public getBookUsingGET(id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
+    public getBookUsingGET(id: string, observe?: 'body', reportProgress?: boolean): Observable<BookDto>;
+    public getBookUsingGET(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BookDto>>;
+    public getBookUsingGET(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BookDto>>;
+    public getBookUsingGET(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getBookUsingGET.');
         }
 
         let headers = this.defaultHeaders;
@@ -198,7 +176,6 @@ export class BookRestControllerService {
 
         return this.httpClient.get<BookDto>(`${this.configuration.basePath}/api/book/${encodeURIComponent(String(id))}`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -213,10 +190,10 @@ export class BookRestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBooksUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<BookDto>>;
-    public getBooksUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookDto>>>;
-    public getBooksUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookDto>>>;
-    public getBooksUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getBooksUsingGET1(observe?: 'body', reportProgress?: boolean): Observable<Array<BookDto>>;
+    public getBooksUsingGET1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookDto>>>;
+    public getBooksUsingGET1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookDto>>>;
+    public getBooksUsingGET1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -246,48 +223,23 @@ export class BookRestControllerService {
     /**
      * updateBook
      * 
-     * @param author author
-     * @param genre genre
-     * @param id id
-     * @param name name
-     * @param price price
-     * @param publicationDate publicationDate
-     * @param publishingOffice publishingOffice
+     * @param bookDto bookDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateBookUsingPUT(author?: string, genre?: string, id?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateBookUsingPUT(author?: string, genre?: string, id?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateBookUsingPUT(author?: string, genre?: string, id?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateBookUsingPUT(author?: string, genre?: string, id?: string, name?: string, price?: number, publicationDate?: number, publishingOffice?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (author !== undefined && author !== null) {
-            queryParameters = queryParameters.set('author', <any>author);
-        }
-        if (genre !== undefined && genre !== null) {
-            queryParameters = queryParameters.set('genre', <any>genre);
-        }
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
-        }
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (price !== undefined && price !== null) {
-            queryParameters = queryParameters.set('price', <any>price);
-        }
-        if (publicationDate !== undefined && publicationDate !== null) {
-            queryParameters = queryParameters.set('publicationDate', <any>publicationDate);
-        }
-        if (publishingOffice !== undefined && publishingOffice !== null) {
-            queryParameters = queryParameters.set('publishingOffice', <any>publishingOffice);
+    public updateBookUsingPUT(bookDto: BookDto, observe?: 'body', reportProgress?: boolean): Observable<BookDto>;
+    public updateBookUsingPUT(bookDto: BookDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BookDto>>;
+    public updateBookUsingPUT(bookDto: BookDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BookDto>>;
+    public updateBookUsingPUT(bookDto: BookDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (bookDto === null || bookDto === undefined) {
+            throw new Error('Required parameter bookDto was null or undefined when calling updateBookUsingPUT.');
         }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -296,12 +248,16 @@ export class BookRestControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/api/book/${encodeURIComponent(String(id))}`,
-            null,
+        return this.httpClient.put<BookDto>(`${this.configuration.basePath}/api/book`,
+            bookDto,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

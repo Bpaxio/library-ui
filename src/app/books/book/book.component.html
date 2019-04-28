@@ -1,0 +1,4 @@
+<div *ngIf="book$ | async as book">
+  <h1>{{book.name}}</h1>
+  <app-comments [bookId]="book.id"></app-comments>
+</div>

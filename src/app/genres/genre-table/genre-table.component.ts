@@ -1,12 +1,10 @@
-import { CreateGenreDialogComponent } from './../create-genre/create-genre.component';
-import { Observable, Subject } from 'rxjs';
-import { map, switchMap, filter } from 'rxjs/operators';
-
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
-import { GenreDto } from '../../../api/service';
-import { GenreRestControllerService } from '../../../api/service/api/genreRestController.service';
+import { GenreDto, GenreRestControllerService } from '../../../api/service';
+import { CreateGenreDialogComponent } from './../create-genre/create-genre.component';
+import { GenreEditComponent } from './../genre-edit/genre-edit.component';
 
 @Component({
   selector: 'app-genre-table',
@@ -15,7 +13,7 @@ import { GenreRestControllerService } from '../../../api/service/api/genreRestCo
 })
 export class GenreTableComponent implements OnInit {
   dataSource = new MatTableDataSource<GenreDto>([]);
-  displayedColumns = ['name', 'actions', 'books'];
+  displayedColumns = ['name', 'books', 'actions'];
 
 
   constructor(
@@ -49,6 +47,21 @@ export class GenreTableComponent implements OnInit {
           this.dataSource.data.splice(index, 1);
           this.dataSource = new MatTableDataSource(this.dataSource.data);
         }
+      });
+  }
+
+  update(genreDto: GenreDto) {
+    this.dialog.open(GenreEditComponent, {
+      height: 'auto',
+      width: 'auto',
+      autoFocus: false,
+      data: genreDto
+    }).afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(genre => {
+        const index = this.dataSource.data.findIndex(g => g.id === genre.id);
+        this.dataSource.data[index] = genre;
+        this.dataSource = new MatTableDataSource(this.dataSource.data);
       });
   }
 

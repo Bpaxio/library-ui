@@ -12,10 +12,8 @@
 
 
 export interface BookDto { 
-    authorFirstName?: string;
-    authorFullName?: string;
-    authorLastName?: string;
-    genreName?: string;
+    authorId?: string;
+    genreId?: string;
     id?: string;
     name?: string;
     price?: number;

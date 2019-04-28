@@ -1,0 +1,10 @@
+<div>
+  <div class="comment-header">
+    <h3>{{comment.username}}</h3>
+    <span class="comment-date">Создано: {{comment.created | date:'medium'}}</span>
+    <button mat-flat-button color="warn" class="delete-icon" (click)="deleteComment()">удалить</button>
+  </div>
+  <div class="comment-message">
+    <p>{{comment.message}}</p>
+  </div>
+</div>

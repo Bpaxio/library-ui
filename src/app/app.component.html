@@ -1,5 +1,11 @@
-<nav>
-  <a routerLink="/books" routerLinkActive="active">Книги</a>
-  <a routerLink="/genres" routerLinkActive="active">Жанры</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="top-content">
+  <div class="menu">
+    <nav>
+      <a mat-button routerLink="/books" routerLinkActive="active">Книги</a>
+      <a mat-button routerLink="/genres" routerLinkActive="active">Жанры</a>
+    </nav>
+  </div>
+  <div class="center-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

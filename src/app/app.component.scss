@@ -6,3 +6,39 @@ body {
   font-family: sans-serif;
   font-weight: 100;
 }
+
+div.menu {
+  margin: {
+    left: 100px;
+    right: 100px;
+    bottom: 30px;
+  }
+}
+
+div.center-content {
+  height: 100%;
+  margin: {
+    left: 100px;
+    right: 100px;
+    bottom: 100px;
+  }
+}
+
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: rgb(2, 2, 24);
+}
+nav a:hover {
+  color: #0312e5;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #0312e5;
+}

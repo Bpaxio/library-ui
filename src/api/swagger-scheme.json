@@ -89,7 +89,55 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "author-rest-controller"
+        ],
+        "summary": "updateAuthor",
+        "operationId": "updateAuthorUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "authorDto",
+            "description": "authorDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -145,67 +193,6 @@
         },
         "deprecated": false
       },
-      "put": {
-        "tags": [
-          "author-rest-controller"
-        ],
-        "summary": "updateAuthor",
-        "operationId": "updateAuthorUsingPUT",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "country",
-            "in": "query",
-            "description": "country",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "id",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "surname",
-            "in": "query",
-            "description": "surname",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      },
       "delete": {
         "tags": [
           "author-rest-controller"
@@ -241,13 +228,55 @@
         "deprecated": false
       }
     },
+    "/api/author/{id}/book": {
+      "get": {
+        "tags": [
+          "author-rest-controller"
+        ],
+        "summary": "getBooks",
+        "operationId": "getBooksUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BookDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/api/book": {
       "get": {
         "tags": [
           "book-rest-controller"
         ],
         "summary": "getBooks",
-        "operationId": "getBooksUsingGET",
+        "operationId": "getBooksUsingGET_1",
         "produces": [
           "*/*"
         ],
@@ -287,52 +316,66 @@
         ],
         "parameters": [
           {
-            "name": "author",
-            "in": "query",
-            "description": "author",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "genre",
-            "in": "query",
-            "description": "genre",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "price",
-            "in": "query",
-            "description": "price",
-            "required": false,
-            "type": "number"
-          },
-          {
-            "name": "publicationDate",
-            "in": "query",
-            "description": "publicationDate",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "publishingOffice",
-            "in": "query",
-            "description": "publishingOffice",
-            "required": false,
-            "type": "string"
+            "in": "body",
+            "name": "bookDto",
+            "description": "bookDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookDto"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BookDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "book-rest-controller"
+        ],
+        "summary": "updateBook",
+        "operationId": "updateBookUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "bookDto",
+            "description": "bookDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BookDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -363,9 +406,9 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "id",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -375,89 +418,6 @@
             "schema": {
               "$ref": "#/definitions/BookDto"
             }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [
-          "book-rest-controller"
-        ],
-        "summary": "updateBook",
-        "operationId": "updateBookUsingPUT",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "author",
-            "in": "query",
-            "description": "author",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "genre",
-            "in": "query",
-            "description": "genre",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "description": "id",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "price",
-            "in": "query",
-            "description": "price",
-            "required": false,
-            "type": "number"
-          },
-          {
-            "name": "publicationDate",
-            "in": "query",
-            "description": "publicationDate",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "publishingOffice",
-            "in": "query",
-            "description": "publishingOffice",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
           },
           "401": {
             "description": "Unauthorized"
@@ -483,9 +443,9 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "id",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -552,30 +512,21 @@
         ],
         "parameters": [
           {
-            "name": "bookId",
-            "in": "query",
-            "description": "bookId",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "message",
-            "in": "query",
-            "description": "message",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "username",
-            "in": "query",
-            "description": "username",
-            "required": false,
-            "type": "string"
+            "in": "body",
+            "name": "commentDto",
+            "description": "commentDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CommentDto"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommentDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -705,7 +656,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommentDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -718,6 +672,40 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "comment-rest-controller"
+        ],
+        "summary": "deleteComment",
+        "operationId": "deleteCommentUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         },
         "deprecated": false
@@ -780,7 +768,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenreDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -868,7 +859,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenreDto"
+            }
           },
           "201": {
             "description": "Created"
@@ -919,6 +913,48 @@
         },
         "deprecated": false
       }
+    },
+    "/api/genre/{id}/book": {
+      "get": {
+        "tags": [
+          "genre-rest-controller"
+        ],
+        "summary": "getBooks",
+        "operationId": "getBooksUsingGET_2",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BookDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
@@ -943,16 +979,10 @@
     "BookDto": {
       "type": "object",
       "properties": {
-        "authorFirstName": {
+        "authorId": {
           "type": "string"
         },
-        "authorFullName": {
-          "type": "string"
-        },
-        "authorLastName": {
-          "type": "string"
-        },
-        "genreName": {
+        "genreId": {
           "type": "string"
         },
         "id": {
