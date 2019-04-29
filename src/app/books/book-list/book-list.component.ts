@@ -40,9 +40,13 @@ export class BookListComponent implements OnInit {
 
   ngOnInit() {
     const genre = this.route.snapshot.queryParamMap.get('genre') || '';
+    const author = this.route.snapshot.queryParamMap.get('author') || '';
     const books$ = iif(
       () => genre.length === 0,
-      this.bookService.getBooksUsingGET1(),
+      iif(() => author.length === 0,
+        this.bookService.getBooksUsingGET1(),
+        this.authorService.getBooksUsingGET(author)
+      ),
       this.genreService.getBooksUsingGET2(genre)
     );
     this.authors$ = this.authorService.getAuthorsUsingGET().pipe(shareReplay(1));
