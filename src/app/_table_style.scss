@@ -1,0 +1,311 @@
+@import "variables_main";
+@import "mixins_main";
+
+/* Reset Material Table styles */
+.table {
+  ::ng-deep {
+    .mat-header-row,
+    .mat-row {
+      height: 40px;
+
+      &.table-row-condense {
+        height: 20px;
+
+        th, td, .mat-cell, .mat-header-cell, .mat-footer-cell {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      // Styles for mat-table that is not a <table>
+      &:not(tr) {
+        border-bottom-width: 0;
+        min-height: 40px;
+        align-items: stretch;
+      }
+    }
+
+    .mat-header-row:not(tr) {
+      border-top: 1px solid $gray-95;
+    }
+
+    .mat-header-cell, .mat-cell {
+      &:not(tr) {
+        border-top-width: 0;
+        border-left-width: 0;
+
+        &:first-child {
+          border-left-width: 1px;
+        }
+      }
+    }
+
+    .mat-cell:first-child,
+    .mat-footer-cell:first-child,
+    .mat-header-cell:first-child {
+      padding-left: $grid-gutter-width / 2;
+    }
+  }
+}
+
+.table {
+  border-collapse: collapse;
+
+  ::ng-deep {
+    thead th {
+      vertical-align: middle;
+    }
+
+    .mat-header-cell, .mat-cell {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      padding: $grid-gutter-width / 2;
+      vertical-align: middle;
+      border: 1px solid $gray-95;
+      color: $gray-30;
+      overflow-y: hidden;
+    }
+
+    .mat-header-row {
+      .mat-header-cell {
+        background-color: $white;
+
+        &.sort-active, &[aria-sort*="ending"] {
+          font-weight: 500;
+          background-color: $gray-90;
+        }
+      }
+    }
+
+    button.btn:disabled i, button.btn:disabled span {
+      color: $gray-40 !important;
+    }
+
+    .icon-info.active {
+      color: $highlight-color;
+    }
+  }
+}
+
+// Cells with hidden content
+::ng-deep .text-overflow-fade {
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 10px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba($white, 0) 10%, rgba($white, 1) 100%);
+  }
+}
+
+.table-striped {
+  ::ng-deep {
+    tbody tr:nth-of-type(odd),
+    mat-row:nth-of-type(odd) {
+      background-color: $transparent;
+
+      td, th, .mat-cell, .mat-header-cell {
+        background-color: $gray-98;
+      }
+
+      .text-overflow-fade {
+        &::after {
+          background: linear-gradient(to right, rgba($gray-98, 0) 10%, rgba($gray-98, 1) 100%);
+        }
+      }
+    }
+  }
+}
+
+// Overflow-wrapper
+::ng-deep .table-with-overflow-wrapper td {
+  line-height: 22px !important;
+}
+
+::ng-deep .username-wrapper,
+::ng-deep .overflow-wrapper {
+  overflow: hidden !important;
+  position: relative;
+  padding: 0 !important;
+
+  line-height: 22px !important;
+
+  & > a, & > span {
+    display: block;
+    white-space: nowrap;
+    padding: 10px 15px;
+    overflow: visible;
+    height: 100%;
+    min-width: 100%;
+  }
+
+  &.overflow-wrapper-not-collapsed {
+    & > a, & > span {
+      padding: 12px 17px;
+    }
+
+    &:hover {
+      & > a, & > span {
+        height: auto;
+      }
+    }
+  }
+
+  &:hover {
+    overflow: visible !important;
+
+    &::after {
+      display: none;
+    }
+
+    & > a, & > span {
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      background: $white;
+      color: $blue;
+      box-shadow: 5px 5px 10px -5px rgba($black, .15);
+    }
+  }
+
+  &.text-overflow-height:hover > span {
+    min-height: 100%;
+    height: auto;
+    white-space: normal;
+  }
+}
+
+::ng-deep .mat-sort-header-container:hover {
+  color: $blue;
+}
+
+// Table controls
+.table-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .custom-checkbox {
+    min-height: 16px;
+    padding-left: 16px;
+  }
+}
+
+.table-controls-transparent {
+  display: flex;
+  align-items: center;
+  border-color: $transparent !important;
+  min-width: 70px;
+  background-color: $transparent !important;
+  text-align: center;
+
+  &.table-controls-remove {
+    padding: 8px 0;
+    max-width: 40px;
+    text-align: left !important;
+
+    button {
+      height: 100%;
+      opacity: 1;
+    }
+  }
+
+  button {
+    width: 40px;
+    height: 21px;
+    margin: 0 5px;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $transparent !important;
+    color: $blue;
+    opacity: 0;
+
+    tr:hover & {
+      opacity: 1;
+    }
+
+    &.btn-remove {
+      color: $gray-95;
+    }
+
+    &:hover, &:active {
+      color: $red;
+    }
+  }
+}
+
+// Colored stripe in table
+.h-1 {
+  height: 1px; // FF hack
+}
+
+::ng-deep .issues-header-cell {
+  padding: 0 !important;
+  height: 1px;
+
+  &-inside {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: table;
+  }
+
+  &-top {
+    display: table-cell;
+    padding: 0.75rem;
+  }
+
+  &-affix {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    display: flex;
+    flex-flow: row nowrap;
+
+    div {
+      flex-grow: 1;
+      height: 100%;
+
+      &.red {
+        background-color: $red;
+      }
+      &.orange {
+        background-color: $orange;
+      }
+      &.yellow {
+        background-color: $yellow;
+      }
+      &.blue {
+        background-color: $blue;
+      }
+    }
+  }
+}
+
+@-moz-document url-prefix() {
+  // FF hack
+  .issues-header-cell {
+    height: auto !important;
+  }
+}
+
+.issues-cell {
+  width: 80px;
+  font-weight: 500;
+}
+
+::ng-deep .score-col {
+  .mat-sort-header-container {
+    justify-content: center;
+  }
+}

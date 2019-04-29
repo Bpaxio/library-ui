@@ -1,0 +1,27 @@
+
+<div class="center-div">
+  <form [formGroup]="form" class="author-form">
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Имя Автора"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="surname" placeholder="Фамилия Автора"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="country" placeholder="Страна"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <button *ngIf="author else createAuthor" mat-flat-button color="primary" type="submit" (click)="update()">Изменить</button>
+      <ng-template #createAuthor>
+        <button mat-flat-button color="primary" type="submit" (click)="create()">Создать</button>
+      </ng-template>
+      <button mat-flat-button type="reset" (click)="cancel()">Отменить</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,32 @@
+@import '../../table_style';
+
+.genre-table ::ng-deep {
+  .mat-row {
+    height: auto !important;
+  }
+
+  .mat-column-name {
+    max-width: 30%;
+  }
+
+  .mat-column-books {
+    max-width: 20%;
+  }
+
+  .mat-column-actions {
+    max-width: 50%;
+    word-break: break-all; // IE and Edge
+
+    @supports not (display: -ms-grid) { // other browsers
+      word-break: normal; // FF hack
+      word-break: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  }
+
+}
+
+.create-btn {
+  margin: 20px;
+}

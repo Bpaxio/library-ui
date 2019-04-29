@@ -1,0 +1,79 @@
+/*
+** COLORS
+*/
+
+$transparent: rgba(0,0,0,0);
+$white: #ffffff;
+$gray-98: #fafafa;
+$gray-95: #f0f0f0;
+$gray-90: #e4e4e4;
+$gray-80: #d0d0d0;
+$gray-70: #b0b0b0;
+$gray-60: #979797;
+$gray-50: #878787;
+$gray-45: #757575;
+$gray-40: #666666;
+$gray-30: #4a4a4a;
+$gray-10: #1a1a1a;
+$black: #000000;
+
+$dark-blue: #072148;
+$dark-blue-gray: #324354;
+
+$red: #cf0110;
+$orange: #e77d3d;
+$yellow: #f9bf3a;
+$green: #00c853;
+$blue: #0076ff;
+$light-blue: #0099ff;
+$magenta: #ad1457;
+$purple: #3d3083;
+
+$pastel-red: #eea6a6;
+$pastel-green: #92d0be;
+$blue-gray: #9999aa;
+$blue-gray-light: #dadfe2;
+
+$highlight-color: $blue;
+$highlight-color-hover: darken($highlight-color, 5%);
+$highlight-color-active: darken($highlight-color, 7.5%);
+$a-hover-col: #0053b3;
+$toolbar-hover-bg: #05396c;
+
+$red-hover: #ff5360;
+$red-active: #ff0416;
+
+/*
+** TYPOGRAPHY
+*/
+
+$font-general: 'IBM Plex Sans', Cambria, Georgia, sans-serif;
+$font-mono: 'IBM Plex Mono', monospace;
+
+$font-size-general: 14px;
+
+/*
+**  MEASUREMENTS
+*/
+
+$grid-breakpoint-names: (
+  sm,
+  md,
+  lg,
+  xl
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  xsmall: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+$container-max-widths: (
+  xl: 1220px
+);
+
+$grid-gutter-width: 20px;

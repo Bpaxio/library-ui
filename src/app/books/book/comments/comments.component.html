@@ -1,0 +1,21 @@
+<div class="comments-list">
+  <ul *ngIf="(count$ | async) > 0 else noComments">
+    <li *ngFor="let comment of comments$ | async">
+      <app-comment [comment]="comment" (delete)="delete$.next($event)"></app-comment>
+    </li>
+  </ul>
+  <ng-template #noComments>
+    <p>Нет комментариев.</p>
+  </ng-template>
+</div>
+<form [formGroup]="form">
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="message" placeholder="Введите текст комментария"/>
+      <mat-error>
+        Поле обязательно для заполнения
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-flat-button [disabled]="form.invalid" (click)="create$.next()">Оставить комментарий</button>
+</form>

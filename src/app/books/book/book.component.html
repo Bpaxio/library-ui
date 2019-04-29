@@ -1,0 +1,6 @@
+<div *ngIf="book$ | async as book">
+  <h1>{{book.name}}</h1>
+  <p>Была издана в {{book.publicationDate}} году издательством: {{book.publishingOffice}}</p>
+  <h2>Комментарии</h2>
+  <app-comments [bookId]="book.id"></app-comments>
+</div>

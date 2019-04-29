@@ -1,0 +1,45 @@
+<div class="center-div">
+  <form [formGroup]="form" class="book-form">
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Название книги"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Автор" formControlName="authorId" [compareWith]="compareItems">
+          <mat-option *ngFor="let author of authors$ |async" [value]="author.id">{{author.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="publicationDate" placeholder="Год издания"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="publishingOffice" placeholder="Название издательства"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Жанр" formControlName="genreId" [compareWith]="compareItems">
+          <mat-option *ngFor="let genre of genres$ |async" [value]="genre.id">{{genre.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="price" placeholder="Цена"/>
+      </mat-form-field>
+    </div>
+    <div>
+      <button *ngIf="book else createBook" mat-flat-button color="primary" type="submit" (click)="update()">Изменить</button>
+      <ng-template #createBook>
+        <button mat-flat-button color="primary" type="submit" (click)="create()">Создать</button>
+      </ng-template>
+      <button mat-flat-button type="reset" (click)="cancel()">Отменить</button>
+    </div>
+  </form>
+</div>

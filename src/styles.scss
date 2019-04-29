@@ -1,0 +1,145 @@
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/_theming.scss';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "app/variables_main";
+@include mat-core();
+@import "~bootstrap/scss/bootstrap";
+@import "app/table_style";
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 20px 40px;
+
+  color: $black;
+  font-family: $font-general;
+  font-size: 20px;
+  background-color: $gray-98;
+}
+
+h1 {
+  color: #369;
+  font-size: 250%;
+  text-align: center;
+}
+
+h2, h3 {
+  color: #444;
+  font-weight: lighter;
+  text-align: center;
+}
+
+body, input[text], button {
+  color: $gray-30;
+  font-family: $font-general;
+}
+
+a {
+  cursor: pointer;
+  cursor: hand;
+  color: $blue;
+  outline: none;
+
+  img {
+    border: none;
+  }
+}
+
+a:hover, a:active {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: $a-hover-col;
+}
+
+a::-moz-focus-inner {
+  border: 0;
+}
+
+input:focus, button:focus {
+  outline: none !important;
+}
+
+p {
+  margin: 5px 0;
+}
+
+code {
+  color: $highlight-color;
+}
+
+pre, code, code *, kbd, samp {
+  font-family: $font-mono;
+}
+
+/* everywhere else */
+* {
+  font-family: $font-general;
+}
+
+.color-blue {
+  color: $blue !important;
+}
+.color-pastel-red {
+  color: $pastel-red !important;
+}
+.color-red {
+  color: $red !important;
+}
+.color-orange {
+  color: $orange !important;
+}
+.color-yellow {
+  color: $yellow !important;
+}
+.color-pastel-green {
+  color: $pastel-green !important;
+}
+.color-green {
+  color: $green !important;
+}
+
+.underline-link {
+  font-size: 14px;
+  line-height: 1.43;
+  text-decoration: none !important;
+  outline: none !important;
+  color: $blue !important;
+  border-bottom: 1px solid rgba($blue, .2);
+
+  &:hover {
+    color: darken($blue, 10%) !important;
+    border-color: rgba($blue, .5);
+  }
+
+  & + & {
+    margin-left: 12px;
+  }
+}
+
+.row {
+  margin-left: -$grid-gutter-width;
+  margin-right: -$grid-gutter-width;
+
+  > .col,
+  > [class*="col-"] {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+  }
+}
+
+.form-row {
+  margin-left: -$grid-gutter-width / 2;
+  margin-right: -$grid-gutter-width / 2;
+
+  > .col,
+  > [class*="col-"] {
+    padding-left: $grid-gutter-width / 2;
+    padding-right: $grid-gutter-width / 2;
+  }
+}
